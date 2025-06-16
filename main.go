@@ -22,6 +22,23 @@ func main() {
 		return
 	}
 
+	commands := []cmd.Command{
+		&cmd.AddCommand{},
+	}
+
+
+	input := os.Args[1]
+	for _, c := range commands {
+		if input == c.Name() {
+			err := c.Run(os.Args[2:])
+			if err != nil {
+				fmt.Printf("Error: %v ", err)
+				os.Exit(1)
+			}
+			return
+		}
+	}
+
 	switch os.Args[1] {
 	case "greet":
 		cmd.GreetCmd(os.Args[2:])
