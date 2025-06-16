@@ -5,3 +5,5 @@
 go-cli
 
 .vscode/
+
+.tasks.json
