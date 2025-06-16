@@ -1,0 +1,7 @@
+*.exe
+*.out
+*.bin
+
+go-cli
+
+.vscode/
