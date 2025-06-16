@@ -8,10 +8,10 @@ import (
 )
 
 func printHelp(commands []cmd.Command) {
-	fmt.Println("Usage: doro [command] [flags]")
+	fmt.Println("Usage: doro` [command] [flags]")
 	fmt.Println("\nAvailablle commands: ")
 	for _, c := range commands {
-		fmt.Printf("	%v	- %v", c.Name(), c.Description())
+		fmt.Printf("	%v\t- %v\n", c.Name(), c.Description())
 	}
 	fmt.Println("\nUse 'doro [command] -h' for more information about the comand.")
 
@@ -26,6 +26,7 @@ func main() {
 	commands := []cmd.Command{
 		&cmd.AddCommand{},
 		&cmd.ShowCommand{},
+		&cmd.CompleteCommand{},
 	}
 
 
@@ -34,7 +35,7 @@ func main() {
 		if input == c.Name() {
 			err := c.Run(os.Args[2:])
 			if err != nil {
-				fmt.Printf("Error: %v ", err)
+				fmt.Printf("Error: %v \n", err)
 				os.Exit(1)
 			}
 			return
