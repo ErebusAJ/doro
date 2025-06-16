@@ -7,11 +7,12 @@ import (
 	"github.com/ErebusAJ/go-cli/cmd"
 )
 
-func printHelp() {
+func printHelp(commands []cmd.Command) {
 	fmt.Println("Usage: go-cli [command] [flags]")
 	fmt.Println("\nAvailablle commands: ")
-	fmt.Println("	greet	- Greet someone")
-	fmt.Println("	info	- Print age")
+	for _, c := range commands {
+		fmt.Printf("	%v	- %v", c.Name(), c.Description())
+	}
 	fmt.Println("\nUse 'go-cli [command] -h' for more information about the comand.")
 
 }
@@ -24,6 +25,7 @@ func main() {
 
 	commands := []cmd.Command{
 		&cmd.AddCommand{},
+		&cmd.ShowCommand{},
 	}
 
 
@@ -47,7 +49,7 @@ func main() {
 		cmd.InfoCmd(os.Args[2:])
 	
 	case "-h", "--help":
-		printHelp()
+		printHelp(commands)
 
 	default:
 		fmt.Println("Unknown command: ", os.Args[1])

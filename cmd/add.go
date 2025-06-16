@@ -19,7 +19,7 @@ func (g *AddCommand) Name() string {
 
 // description of the command 
 func(g *AddCommand) Description() string {
-	return "Add creates a new to do task."
+	return "add creates a new to do task"
 }
 
 // run command
@@ -51,8 +51,22 @@ func(g *AddCommand) Run(args []string) error {
 
 
 // save task 
-func saveTask(filename string, items todo.TaskItem) error {
-	jsonItem, err := json.Marshal(items)
+func saveTask(filename string, task todo.TaskItem) error {
+	
+	var savedTask []todo.TaskItem
+	jsonb, err := os.ReadFile("./.tasks.json")
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(jsonb, &savedTask)
+	if err != nil {
+		return err
+	}
+
+	savedTask = append(savedTask, task)
+
+	jsonItem, err := json.Marshal(savedTask)
 	if err != nil {
 		return err
 	}
