@@ -1,4 +1,4 @@
-module github.com/ErebusAJ/go-cli
+module github.com/ErebusAJ/doro
 
 go 1.23.2
 

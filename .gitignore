@@ -3,6 +3,7 @@
 *.bin
 
 go-cli
+doro
 
 .vscode/
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ErebusAJ/go-cli/todo"
+	"github.com/ErebusAJ/doro/todo"
 )
 
 type ShowCommand struct{}

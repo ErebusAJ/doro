@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ErebusAJ/go-cli/cmd"
+	"github.com/ErebusAJ/doro/cmd"
 )
 
 func printHelp(commands []cmd.Command) {
-	fmt.Println("Usage: go-cli [command] [flags]")
+	fmt.Println("Usage: doro [command] [flags]")
 	fmt.Println("\nAvailablle commands: ")
 	for _, c := range commands {
 		fmt.Printf("	%v	- %v", c.Name(), c.Description())
 	}
-	fmt.Println("\nUse 'go-cli [command] -h' for more information about the comand.")
+	fmt.Println("\nUse 'doro [command] -h' for more information about the comand.")
 
 }
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go-cli [command] [flags]")
+		fmt.Println("Usage: doro [command] [flags]")
 		return
 	}
 
