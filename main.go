@@ -23,6 +23,14 @@ func infoCmd(args []string) {
 	}
 }
 
+func printHelp() {
+	fmt.Println("Usage: go-cli [command] [flags]")
+	fmt.Println("\nAvailablle commands: ")
+	fmt.Println("	greet	- Greet someone")
+	fmt.Println("	info	- Print age")
+	fmt.Println("\nUse 'go-cli [command] -h' for more information about the comand.")
+
+}
 
 func main() {
 	if len(os.Args) < 2 {
@@ -37,6 +45,9 @@ func main() {
 	case "info":
 		infoCmd(os.Args[2:])
 	
+	case "-h", "--help":
+		printHelp()
+
 	default:
 		fmt.Println("Unknown command: ", os.Args[1])
 	}
