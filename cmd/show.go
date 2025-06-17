@@ -5,6 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
+	"text/tabwriter"
 
 	"github.com/ErebusAJ/doro/todo"
 )
@@ -41,13 +43,26 @@ func(c *ShowCommand) Run(args []string) error {
 		return err
 	}
 
-	fmt.Println("	UUID\t\t\t\t\tTask\t\t\tPriority	Completed")
+	w := tabwriter.NewWriter(os.Stdout, 8, 2, 4,' ', 0)
+	fmt.Fprintln(w, "Priority\tTask\tStatus\tDate Added\tID")
+
 	for _, i := range tasks {
 		if(i.Completed != *status){ 
 			continue
 		}
-		fmt.Printf("	%s	%s	\t%d	\t%v \n", i.ID, i.Text,i.Priority, i.Completed)
+		fmt.Fprintln(w, strconv.Itoa(i.Priority)+"\t"+i.Text+"\t"+prettyStatus(i.Completed)+"\t"+i.Date.Format("02-01-2006")+"\t"+i.ID[:6])
 	}
+	w.Flush()
 
 	return nil
+}
+
+
+// beautify completion satus
+func prettyStatus(status bool) string {
+	if status {
+		return "✅"
+	}
+
+	return "❌"
 }

@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/ErebusAJ/doro/todo"
 	"github.com/google/uuid"
@@ -39,8 +40,9 @@ func(g *AddCommand) Run(args []string) error {
 	task := todo.TaskItem{
 		ID: uuid.New().String(),
 		Text: *tempTask,
-		Priority: int32(*priority),
+		Priority: *priority,
 		Completed: false,
+		Date: time.Now(),
 	}
 
 	err := saveTask("./.tasks.json", task)
