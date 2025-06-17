@@ -41,12 +41,12 @@ func(c *ShowCommand) Run(args []string) error {
 		return err
 	}
 
-	fmt.Println("	UUID\t\t\t\t\tTask\t\t\tCompleted")
+	fmt.Println("	UUID\t\t\t\t\tTask\t\t\tPriority	Completed")
 	for _, i := range tasks {
 		if(i.Completed != *status){ 
 			continue
 		}
-		fmt.Printf("	%s	%s	\t%v \n", i.ID, i.Text, i.Completed)
+		fmt.Printf("	%s	%s	\t%d	\t%v \n", i.ID, i.Text,i.Priority, i.Completed)
 	}
 
 	return nil

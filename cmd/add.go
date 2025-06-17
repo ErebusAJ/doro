@@ -27,14 +27,19 @@ func(g *AddCommand) Run(args []string) error {
 	fs := flag.NewFlagSet("add", flag.ExitOnError)
 	tempTask := fs.String("task", "", "Your todo task.")
 
+	// priority for the to do task
+	priority := fs.Int("p", 2, "Set priority levels: 1/2/3 highest to lowest")
+
 	fs.Parse(args)
 	if *tempTask == "" {
 		return fmt.Errorf("task description cannot be empty")
 	}
 
+
 	task := todo.TaskItem{
 		ID: uuid.New().String(),
 		Text: *tempTask,
+		Priority: int32(*priority),
 		Completed: false,
 	}
 
