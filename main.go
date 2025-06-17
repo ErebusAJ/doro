@@ -27,6 +27,7 @@ func main() {
 		&cmd.AddCommand{},
 		&cmd.ShowCommand{},
 		&cmd.CompleteCommand{},
+		&cmd.DeleteCommand{},
 	}
 
 
