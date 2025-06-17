@@ -3,33 +3,45 @@ package main
 import (
 	"fmt"
 	"os"
+	"text/tabwriter"
 
 	"github.com/ErebusAJ/doro/cmd"
+	"github.com/common-nighthawk/go-figure"
 )
 
 func printHelp(commands []cmd.Command) {
-	fmt.Println("Usage: doro` [command] [flags]")
-	fmt.Println("\nAvailablle commands: ")
+	fmt.Println("Usage: doro [command] [flags]")
+	fmt.Println("\nAvailable commands: ")
+
+	w := tabwriter.NewWriter(os.Stdout, 4, 2, 4, ' ', 0)
 	for _, c := range commands {
-		fmt.Printf("	%v\t- %v\n", c.Name(), c.Description())
+		fmt.Fprintf(w, "\t%v\t- %v\n", c.Name(), c.Description())
 	}
+	w.Flush()
 	fmt.Println("\nUse 'doro [command] -h' for more information about the comand.")
 
 }
 
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: doro [command] [flags]")
-		return
-	}
+// root cmd display 
+func rootCommand(commands []cmd.Command) {
+	figure.NewColorFigure("Doro", "isometric1", "green", true).Print()
+	figure.NewColorFigure("A CLI todo app", "ogre", "cyan", true).Print()
+	printHelp(commands)
+}
 
+func main() {
+	// command list
 	commands := []cmd.Command{
 		&cmd.AddCommand{},
 		&cmd.ShowCommand{},
 		&cmd.CompleteCommand{},
 		&cmd.DeleteCommand{},
 	}
-
+	
+	if len(os.Args) < 2 {
+		rootCommand(commands)
+		return
+	}
 
 	input := os.Args[1]
 	for _, c := range commands {
