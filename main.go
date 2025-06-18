@@ -18,7 +18,7 @@ func printHelp(commands []cmd.Command) {
 		fmt.Fprintf(w, "\t%v\t- %v\n", c.Name(), c.Description())
 	}
 	w.Flush()
-	fmt.Println("\nUse 'doro [command] -h' for more information about the comand.")
+	fmt.Println("\nUse 'doro [command] -h' for more information about the command.")
 
 }
 
