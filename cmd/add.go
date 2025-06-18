@@ -61,7 +61,7 @@ func saveTask(filename string, task todo.TaskItem) error {
 	var savedTask []todo.TaskItem
 	jsonb, err := os.ReadFile(todo.TaskFilePath())
 	if err != nil {
-		if strings.HasSuffix(err.Error(), "such file or directory") {
+		if strings.HasSuffix(err.Error(), "such file or directory") || strings.HasSuffix(err.Error(), "cannot find the file specified.") || strings.HasSuffix(err.Error(), "it does not exist.") {
 			savedTask = append(savedTask, task)
 			jsonb, err := json.Marshal(savedTask)
 			if err != nil {
