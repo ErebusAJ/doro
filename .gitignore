@@ -8,3 +8,5 @@ doro
 .vscode/
 
 .tasks.json
+# Added by goreleaser init:
+dist/
