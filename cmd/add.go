@@ -5,26 +5,27 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/ErebusAJ/doro/todo"
 	"github.com/google/uuid"
 )
 
-type AddCommand struct {}
+type AddCommand struct{}
 
 // name of the command
 func (g *AddCommand) Name() string {
 	return "add"
 }
 
-// description of the command 
-func(g *AddCommand) Description() string {
+// description of the command
+func (g *AddCommand) Description() string {
 	return "add creates a new to do task"
 }
 
 // run command
-func(g *AddCommand) Run(args []string) error {
+func (g *AddCommand) Run(args []string) error {
 	fs := flag.NewFlagSet("add", flag.ExitOnError)
 	tempTask := fs.String("task", "", "Your todo task.")
 
@@ -36,34 +37,41 @@ func(g *AddCommand) Run(args []string) error {
 		return fmt.Errorf("task description cannot be empty")
 	}
 
-
 	task := todo.TaskItem{
-		ID: uuid.New().String(),
-		Text: *tempTask,
-		Priority: *priority,
+		ID:        uuid.New().String(),
+		Text:      *tempTask,
+		Priority:  *priority,
 		Completed: false,
-		Date: time.Now(),
+		Date:      time.Now(),
 	}
 
-	err := saveTask("./.tasks.json", task)
+	err := saveTask(todo.TaskFilePath(), task)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(task)
+	fmt.Println("Created task successfully!!")
 
 	return nil
 }
 
-
-
-// save task 
+// save task
 func saveTask(filename string, task todo.TaskItem) error {
-	
+
 	var savedTask []todo.TaskItem
-	jsonb, err := os.ReadFile("./.tasks.json")
+	jsonb, err := os.ReadFile(todo.TaskFilePath())
 	if err != nil {
-		return err
+		if strings.HasSuffix(err.Error(), "such file or directory") {
+			savedTask = append(savedTask, task)
+			jsonb, err := json.Marshal(savedTask)
+			if err != nil {
+				return err
+			}
+			os.WriteFile(filename, jsonb, 0644)
+			return nil
+		} else {
+			return err
+		}
 	}
 
 	err = json.Unmarshal(jsonb, &savedTask)

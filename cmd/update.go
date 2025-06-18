@@ -36,7 +36,7 @@ func(c *UpdateCommand) Run(args []string) error {
 	}
 
 	var tasks []todo.TaskItem
-	jsonb, err := os.ReadFile("./.tasks.json")
+	jsonb, err := os.ReadFile(todo.TaskFilePath())
 	if err != nil {
 		return err
 	}
@@ -60,7 +60,7 @@ func(c *UpdateCommand) Run(args []string) error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile("./.tasks.json", jsonb, 0644)
+	err = os.WriteFile(todo.TaskFilePath(), jsonb, 0644)
 	if err != nil {
 		return err
 	}

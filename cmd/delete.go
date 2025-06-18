@@ -33,7 +33,7 @@ func(c *DeleteCommand) Run(args []string) error {
 	}
 
 	var tasks []todo.TaskItem
-	temp, err := os.ReadFile("./.tasks.json")
+	temp, err := os.ReadFile(todo.TaskFilePath())
 	if err != nil {
 		return err
 	}
@@ -61,7 +61,7 @@ func(c *DeleteCommand) Run(args []string) error {
 		return err
 	}
 
-	err = os.WriteFile("./.tasks.json", jsonb, 0644)
+	err = os.WriteFile(todo.TaskFilePath(), jsonb, 0644)
 	if err != nil {
 		return err
 	}

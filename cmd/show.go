@@ -41,7 +41,7 @@ func(c *ShowCommand) Run(args []string) error {
 	} 
 
 	var tasks []todo.TaskItem
-	jsonb, err := os.ReadFile("./.tasks.json")
+	jsonb, err := os.ReadFile(todo.TaskFilePath())
 	if err != nil {
 		return err
 	}
