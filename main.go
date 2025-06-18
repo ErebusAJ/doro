@@ -34,6 +34,7 @@ func main() {
 	commands := []cmd.Command{
 		&cmd.AddCommand{},
 		&cmd.ShowCommand{},
+		&cmd.UpdateCommand{},
 		&cmd.CompleteCommand{},
 		&cmd.DeleteCommand{},
 	}
